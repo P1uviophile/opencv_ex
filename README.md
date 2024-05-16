@@ -12,6 +12,8 @@ matplotilb == 3.8.3
 
 ### 运行前提示
 
+主要代码均在final_ex文件夹下
+
 若想用自己相机拍摄请将biaoding/cail文件夹下的图片替换成自己相机拍摄的棋盘格图片后运行biaoding/calibrate.py; 同时请将camera_parameters下的data和test下的图片替换成自己相机拍摄的图片; 替换标识物图片请在理解下文的项目流程的前提下自行更换标识物与相关参数
 
 ### 网页版
