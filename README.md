@@ -80,7 +80,7 @@ tmp用于临时存放在线生成的AR图像
 
 **1.1** ***\*相机标定\****
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps1.jpg) 
+![wps1](https://github.com/P1uviophile/opencv_ex/assets/95516646/62fed83a-3013-4736-be61-3c6e8e766fb4)
 
 calibrate.py使用实验二中的相机标定方法,读取cail文件夹中的棋盘格图片用于棋盘格标定相机内参,最后将标定的相机内参保存
 
@@ -103,11 +103,11 @@ np.savez('B.npz', mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)
 
 **2.** ***\*获取标识物位姿信息\****
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps2.jpg) 
+![wps2](https://github.com/P1uviophile/opencv_ex/assets/95516646/d6659b6d-f34d-4d64-b6ae-a3761cee1b5f)
 
 标识物图片和将要处理的图片都存储在该目录下的data文件夹中
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps3.jpg) 
+![wps3](https://github.com/P1uviophile/opencv_ex/assets/95516646/a4fa58b0-2345-43ca-afcf-697e0daa8ae3)
 
 两个py文件都实现了获取标识物位姿信息和绘制几何体,不过API_process用于给
 
@@ -118,11 +118,11 @@ np.savez('B.npz', mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)
 **2.1** ***\*标志物定位\****
 
 使用SIFT方法提取对应点后使用FLANN方法处理SIFT特征点，获得匹配点,再使用findHomograhy方法计算单应矩阵H,再通过映射点群的方法获得标识物的四个角点:
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps4.jpg)
+![wps4](https://github.com/P1uviophile/opencv_ex/assets/95516646/973caba5-ec93-431c-b8df-8e94b6f668fa)
 
 **2.2** ***\*位姿计算\****
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps5.jpg) 
+![wps5](https://github.com/P1uviophile/opencv_ex/assets/95516646/045a0e36-3c32-44ff-88d6-2114eef8378a)
 
 通过标识物的四个角点和之前保存的相机内参数和参考标识物的四个角点(因为在同一平面所以z轴全为0,xy长度需要测量),调用solvePnP方法(EPNP算法)计算标识物的位姿信息,得到rvec和tvec
 
@@ -130,23 +130,23 @@ np.savez('B.npz', mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)
 
 事先通过数学方法计算得到二十面体的坐标信息,根据实际情况放缩坐标以适应标识物大小:
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps6.jpg) 
+![wps6](https://github.com/P1uviophile/opencv_ex/assets/95516646/3fbbddd4-1061-4767-aaa3-7e5f37762db8)
 
  
 
 顺便再绘制一个以左上角为顶点的正方体检测投影偏差:
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps7.jpg)
+![wps7](https://github.com/P1uviophile/opencv_ex/assets/95516646/a153a18d-b3e3-480f-b72b-238e4a7b1638)
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps8.jpg) 
+![wps8](https://github.com/P1uviophile/opencv_ex/assets/95516646/4cc46c97-a4c0-4baf-8646-82072393f1a1)
 
  
 
 调用project方法将三维坐标投影到图像上,得到画图用的二维坐标信息:
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps9.jpg) 
+![wps9](https://github.com/P1uviophile/opencv_ex/assets/95516646/c600f1e4-9189-4364-b5aa-ef4104f9af5c)
 
 根据计算得到的坐标信息和面信息绘制二十面体:
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps10.jpg)
+![wps10](https://github.com/P1uviophile/opencv_ex/assets/95516646/3064323b-8a2e-4fb6-bdb0-5e2a4bda0e0c)
 
  
 
@@ -156,7 +156,7 @@ np.savez('B.npz', mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)
 
  
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps11.jpg) 
+![wps11](https://github.com/P1uviophile/opencv_ex/assets/95516646/85d1814d-cfb0-4edc-b213-d72d5af65b68)
 
  
 
@@ -168,8 +168,8 @@ np.savez('B.npz', mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)
 
  
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps12.jpg) 
+![wps12](https://github.com/P1uviophile/opencv_ex/assets/95516646/2a963e4b-2870-4122-9640-241d6234ac63)
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps13.jpg) 
+![wps13](https://github.com/P1uviophile/opencv_ex/assets/95516646/9a0aa791-4770-4d19-b710-bc47978d100c)
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml53836\wps14.jpg)
+![wps14](https://github.com/P1uviophile/opencv_ex/assets/95516646/98dec6c1-cb6b-4922-8e81-0cd08aeaa583)
