@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>成果展示</title>
+    <style>
+        /* 简单的样式定义 */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .comparison {
+            margin: 10px;
+        }
+        img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 5px;
+        }
+        .label {
+            margin: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>图片处理前后对比</h1>
+        <!-- 每一对图片 -->
+        <div class="row">
+    <div class="comparison">
+        <img id="originalImage" src="{{ url_for('static', filename='camera_parameters/data/IMG0.jpg') }}" alt="Original Image" width="550">
+        <div class="label">原始图片</div>
+    </div>
+    <div class="comparison">
+        <img id="processedImage" src="{{ url_for('static', filename='camera_parameters/out/0.jpg') }}" alt="Processed Image" width="550">
+        <div class="label">处理后图片</div>
+    </div>
+</div>
+
+<div class="controls">
+    <button class="button" onclick="previousImage()">上一张</button>
+    <span id="imageIndex">1</span> / <span id="imageCount">21</span>
+    <button class="button" onclick="nextImage()">下一张</button>
+</div>
+        <br>
+        <button class="button" onclick="location.href='/';">返回</button>
+      <script>
+    var numberOfImages = 21; // 有21对图片
+    var imagePairs = [];
+    var currentIndex = 0;
+
+    // 动态生成图片路径数组
+    for (var i = 0; i < numberOfImages; i++) {
+        // 注意：'static/' 是 Flask 默认的静态文件路径前缀
+        imagePairs.push({
+            original: 'static/camera_parameters/data/IMG' + i + '.jpg',
+            processed: 'static/camera_parameters/out/' + i + '.jpg'
+        });
+    }
+
+    function nextImage() {
+        if (currentIndex < imagePairs.length - 1) {
+            currentIndex++;
+            updateImages();
+        }
+    }
+
+    function previousImage() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateImages();
+        }
+    }
+
+    function updateImages() {
+        var currentPair = imagePairs[currentIndex];
+        document.getElementById('originalImage').src = currentPair.original;
+        document.getElementById('processedImage').src = currentPair.processed;
+        document.getElementById('imageIndex').textContent = currentIndex + 1;
+    }
+</script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!-- templates/upload_files.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线处理多张图片</title>
+    <style>
+        /* 添加CSS动画 */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 定义加载动画的样式 */
+        .loading-spinner {
+            border: 5px solid #f3f3f3; /* 浅色边框 */
+            border-top: 5px solid #3498db; /* 顶部边框颜色 */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite; /* 应用动画 */
+        }
+    </style>
+</head>
+<body>
+    <h1>上传多张图片并返回压缩包</h1>
+    <form id="uploadForm" enctype="multipart/form-data" action="/upload_files" method="post">
+        <input type="file" name="files" multiple required>
+        <input type="submit" value="上传图片">
+    </form>
+    <div id="loadingMessage" style="display: none; text-align: center;">
+        <div class="loading-spinner"></div> <!-- 加载动画 -->
+        上传中，请稍候...
+    </div>
+    <br>
+    <a id="downloadZip" href="/download_zip" download style="display:none;">下载图片压缩包</a>
+    <br><br><br>
+    <button class="button" onclick="location.href='/single_img';">上传单张图片</button>
+    <button class="button" onclick="location.href='/';">返回主页</button>
+
+    <script>
+    document.getElementById('uploadForm').addEventListener('submit', function(event){
+    event.preventDefault();
+    // 显示加载提示
+    document.getElementById('loadingMessage').style.display = 'block';
+
+    var formData = new FormData(this);
+
+    fetch('/upload_files', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.blob())
+    .then(myBlob => {
+        // 隐藏加载提示
+        document.getElementById('loadingMessage').style.display = 'none';
+        // 显示下载压缩包的链接
+        document.getElementById('downloadZip').style.display = 'inline';
+        // 此处可以添加将objectURL用于预览或其他用途的代码
+    })
+    .catch(error => {
+        // 隐藏加载提示
+        document.getElementById('loadingMessage').style.display = 'none';
+        console.error('Error during upload', error);
+    });
+});
+    </script>
+</body>
+</html>

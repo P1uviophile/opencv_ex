@@ -1,0 +1,79 @@
+<!-- templates/upload.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线处理单张图片</title>
+    <style>
+        /* 添加CSS动画 */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 定义加载动画的样式 */
+        .loading-spinner {
+            border: 5px solid #f3f3f3; /* 浅色边框 */
+            border-top: 5px solid #3498db; /* 顶部边框颜色 */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite; /* 应用动画 */
+        }
+    </style>
+</head>
+<body>
+    <h1>上传图片进行标识物定位并展示AR二十面体</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <input type="submit" value="上传">
+    </form>
+    <div id="loadingMessage" style="display: none; text-align: center;">
+        <div class="loading-spinner"></div> <!-- 加载动画 -->
+        上传中，请稍候...
+    </div>
+    返回图片为缩略图
+    <br><br>
+    <div>
+        <img id="thumbnail" src="" alt="Thumbnail" style="display:none;">
+        <a id="downloadButton" href="/download_original" download style="display:none;">下载原图</a>
+        <a id="downloadSymbol" href="/download_Symbol" download>下载标识物</a>
+        <br>
+        <button class="button" onclick="location.href='/multiple_img';">上传多张图片</button>
+        <button class="button" onclick="location.href='/';">返回主页</button>
+    </div>
+
+    <script>
+
+
+    document.getElementById('uploadForm').addEventListener('submit', function(event){
+        // 显示加载提示
+        document.getElementById('loadingMessage').style.display = 'block';
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.blob())
+        .then(myBlob => {
+            var objectURL = URL.createObjectURL(myBlob);
+            // 设置缩略图的src属性
+            document.getElementById('thumbnail').src = objectURL;
+            // 显示缩略图
+            document.getElementById('thumbnail').style.display = 'block';
+            // 显示下载原图的链接
+            document.getElementById('downloadButton').style.display = 'inline';
+            // 隐藏加载提示
+            document.getElementById('loadingMessage').style.display = 'none';
+        })
+        .catch(error => {
+            // 隐藏加载提示
+            document.getElementById('loadingMessage').style.display = 'none';
+            console.error('Error during upload', error);
+        });
+    });
+    </script>
+</body>
+</html>
